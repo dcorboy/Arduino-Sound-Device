@@ -37,7 +37,7 @@ For serial control, I set up a SoftwareSerial port on **Pins D2 (Rcv) & D3 (Tx)*
 
 ### Image of Connections
 
-![Mounted with Connections](https://github.com/dcorboy/Arduino-Sound-Device/mounted-connections.jpg "Mounted with Connections")
+![Mounted with Connections](mounted-connections.jpg?raw=true "Mounted with Connections")
 
 ## Usage
 
