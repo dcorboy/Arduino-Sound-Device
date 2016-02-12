@@ -1,5 +1,5 @@
 
-#include "WProgram.h"
+#include "Arduino.h"
 #include "filesys.h"
 #include "config.h"
 #include "storage.h"
@@ -110,22 +110,23 @@ unsigned char InitFileSystem()
   #if defined(__AVR_ATmega1280__)|| defined(__AVR_ATmega2560__)
   freeSector = 0;
   #endif
+  Serial.print(F("Ready for Storage..."));
   
    /* Initialize the storage system */
   if ((c=InitStorage())){
-    //Serial.print("\r\nStorage init returns error \r\n");
-    //Serial.print((int)c);
+    Serial.print(F("\r\nStorage init returns error \r\n"));
+    Serial.print((int)c);
     return c; /* Error in InitStorage */
   }
 
-  //Serial.print("Storage ok.\r\nSector 0 read...");
+  Serial.print(F("Storage ok.\r\nSector 0 read..."));
 
   /* Load MBR */
   sectorAddress.l = 0; /* the first sector on disk */
   ReadDiskSector(0);
 
 
-  //Serial.print("ok.\r\nSector signature...");
+  Serial.print(F("ok.\r\nSector signature..."));
 
   /* Ok, it should be a MBR sector. Let's verify */
   if (diskSect.raw.buf[510] != 0x55)
@@ -133,7 +134,7 @@ unsigned char InitFileSystem()
   if (diskSect.raw.buf[511] != 0xaa)
     return 8; /* sector 0 is not MBR. */
 
-  //Serial.print("ok.\r\nPartition 1...");
+  Serial.print(F("ok.\r\nPartition 1..."));
 
   if (!((diskSect.raw.buf[0x036]=='F')
       &&(diskSect.raw.buf[0x037]=='A')
@@ -147,7 +148,7 @@ unsigned char InitFileSystem()
       	sectorAddress.b.b1 = diskSect.raw.buf[0x1c7];
       	sectorAddress.b.b2 = diskSect.raw.buf[0x1c8];
       	sectorAddress.b.b3 = diskSect.raw.buf[0x1c9];
-      	//Serial.print (" active");
+      	Serial.print (F(" active"));
     	}
 		else
 		{
@@ -162,9 +163,9 @@ unsigned char InitFileSystem()
     	//    return 9; /* No active partition*/
   	}
 
-  //Serial.print(" at sector ");
-  //Serial.print(sectorAddress.l,HEX);
-  //Serial.print('\n');
+  Serial.print(" at sector ");
+  Serial.print(sectorAddress.l,HEX);
+  Serial.print('\n');
 
 
   /* Now leave MBR and load sector 0 of partition */

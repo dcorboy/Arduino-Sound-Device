@@ -18,15 +18,18 @@ unsigned char InitStorage()
 {
   unsigned char result;
 
+  //Serial.print(F("\r\nStorage to be initialized\r\n"));
   result=InitMMC();//Intial ok,support for seek-before-read 11:17 1/12/2010 icing
+  //  Serial.print(F("\r\nDid MMC\r\n"));
   if (result==0x0e){ //ok, no support for seek-before-read
-    //Serial.print("\r\nStorage initialized in seek-and-read mode.\r\n");
+    // Serial.print(F("\r\nStorage initialized in seek-and-read mode.\r\n"));
     storageFlags = 1;
     return 0;
   }
 
+    //Serial.print(F("Storage OK\r\n"));
   if (result){ //error resulted in MMC startup
-    //Serial.print("\r\nInitStorage: Can't start MMC. ");
+    //Serial.print(F("\r\nInitStorage: Can't start MMC. "));
     storageFlags = 4;
     return 1; //MMC Init Error
   }

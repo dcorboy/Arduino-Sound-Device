@@ -189,7 +189,7 @@ void Mp3Reset()
   /* Set clock register, doubler etc. */
   Mp3WriteRegisterWithDelay(SPI_CLOCKF, 0xB8, 0x00); 
 #if 1
-  Serial.print("\r\nClockF:");
+  Serial.print(F("\r\nClockF:"));
   Serial.println(Mp3ReadRegister(SPI_CLOCKF),HEX);
   
 #endif

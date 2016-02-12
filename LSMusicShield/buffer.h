@@ -2,7 +2,7 @@
  * Global buffer for file I/O.
  * Supported data types: Raw buffer, FAT entries.
  */
-#include "WProgram.h"
+#include "Arduino.h"
 
 #ifndef BUFFER_H
 #define BUFFER_H

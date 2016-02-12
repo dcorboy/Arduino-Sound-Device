@@ -19,10 +19,11 @@ unsigned char InitMMC()
   
   if(RebootMMC())
   {
-    //Serial.println("Reboot MMC failed");
+    // Serial.println(F("Reboot MMC failed"));
     return 1;//not able to power up
   }
   
+  //  Serial.println(F("seems to be done"));
   return 0;
 }
 
@@ -41,7 +42,7 @@ unsigned char RebootMMC(){
   }while (c!=0x01);
   // 0x01(idle) response detected.
   
-  Serial.print("\r\nCard found, starting... ");
+  Serial.print(F("\r\nCard found, starting... "));
   //delay(50);//it is very important to give some time here, otherwise intialize will be failed.---Icing
   /*Try max 255 times MMC Wake-up call: set to Not Idle (mmc returns 0x00)*/
   c=20;//20 times maybe also ok
@@ -49,12 +50,12 @@ unsigned char RebootMMC(){
     delay(50);//needs delay here
     if (c==1){
       //timeout
-      Serial.print("Failed.\r\n");
+      Serial.print(F("Failed.\r\n"));
       return 2; /* Not able to power up mmc */
     }
   }
 
-  Serial.print("Ok.\r\n");
+  Serial.print(F("Ok.\r\n"));
   return 0;
 }
 
@@ -287,7 +288,7 @@ unsigned char MmcWaitForData(){
       }
     }
 #else
-    Serial.print("\r\n NoData ");
+    Serial.print(F("\r\n NoData "));
     SPI8Clocks(200); /* Flush MMC by sending lots of FF's to it */
     SPI8Clocks(200);
     SPI8Clocks(200);

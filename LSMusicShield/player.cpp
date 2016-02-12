@@ -6,9 +6,9 @@
 #include "config.h"
 #include "ui.h"
 #include "vs10xx.h"
-#include "NewSoftSerial.h"
+#include "SoftwareSerial.h"
 
-extern NewSoftSerial mySerial;
+extern SoftwareSerial mySerial;
 
 /** Playing State Global */
  playingstatetype playingState = PS_NORMAL;
@@ -35,7 +35,7 @@ void PlayCurrentFile()
   //sectorAddress.l = album[currentAlbumCnt].track[currentFile].trackAddr.l;
   delay(100);//delay here is very important, give some time to sd card.---by Icing
   nFragments = BuildFragmentTable(); /* Too slow, rewrite! */
-  //Serial.print("Fragments: ");
+  //Serial.print(F("Fragments: "));
   //Serial.print(nFragments,DEC);
 
   ///LcdLocateHome();
@@ -166,7 +166,7 @@ void CheckKey()
   
   
 }
-
+#if 0
 void IPODCommandProcess()
 {
 	if(mySerial.available())
@@ -221,7 +221,7 @@ void IPODCommandProcess()
 		}
 	}
 }
-
+#endif
 
 /** This function is called when the player is playing a song
  and there is free processor time. The basic task of this
@@ -229,20 +229,20 @@ void IPODCommandProcess()
 void AvailableProcessorTime()
 {
 	
-	do
-	{
-  		CheckKey();
+	// do
+	// {
+  		// CheckKey();
   
- 		 IPODCommandProcess();
+ 		 // IPODCommandProcess();
 		 
-		if(0 == playStop)
-		{
-			GREEN_LED_ON();
-		}	
-	}while(0 == playStop);
+		// if(0 == playStop)
+		// {
+			// GREEN_LED_ON();
+		// }	
+	// }while(0 == playStop);
 	
   	//do other things
-	ControlLed();
+	// ControlLed();
 	
 }
 
@@ -283,4 +283,38 @@ void Play()
 		Mp3SoftReset();
 	 }
   }
+}
+
+void PlayTrack(byte track)
+{
+  playingState = PS_NEXT_SONG;
+
+  currentFile = track;
+
+ 
+	 //AvailableProcessorTime();
+	 
+	 	if(OpenFile(currentFile))
+	 	{	
+			//if open failed, then try it again
+	 		if(OpenFile(currentFile))
+			{
+        // Serial.println(F("File could not be opened"));
+				return;
+			}
+	 	}
+		
+    //Serial.println(F("About to play"));
+		PlayCurrentFile();
+    playingState = PS_NORMAL; 
+		Mp3SoftReset();
+}
+
+byte GetVolume() {
+  return g_volume;
+}
+
+void SetVolume(byte volume) {
+  g_volume = volume;
+  Mp3SetVolume(g_volume,g_volume);
 }
