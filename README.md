@@ -41,13 +41,46 @@ For serial control, I set up a SoftwareSerial port on **Pins D2 (Rcv) & D3 (Tx)*
 
 ## Usage
 
-TODO
+### Direct Software Control
 
-Explain the software interface for playing tracks
+I add three functions to player.cpp:
 
-Explain the IR system
+``` c++
+void SetVolume(byte volume); // set volume to a specific level
+byte GetVolume();            // get current volume (useful for vol up/down)
+void PlayTrack(byte track);  // plays track marked using the boards internal naming scheme
+```
 
-Explain the serial play method
+### Infra-Red Remote Control
+
+IR control is handled entirely within the example sketch. To keep the sketch small, IR signals received are interpreted simply as FNV hashes.
+
+To add more buttons, or set up for a completely different remote, you can use the utility interface over the UART serial connection to see the values of codes received when you press a button on your remote.
+
+Those codes can then be added to the **check_IR_control()** method.
+
+### Serial Control
+
+Serial control is handled by numeric codes sent across the software serial connections on digital pins D2 & D3.
+
+The code consists of four bytes:
+
+| Byte | Type | Value  |
+|:---:| --- | --- |
+| 0 | ID | 0xC0 |
+| 1 | ID | 0x5D |
+| 2 | CMD | Command (see table below) |
+| 3 | DATA | Dependant on command |
+
+The following commands are currently supported:
+
+| Code | Command | Data | Description  |
+| --- | --- | --- | --- |
+| 0x00 | HELLO | Test data | Used for debugging, simply outputs contained data to the UART serial |
+| 0x01 | SETVOL | Desired volume | Sets board volume to indicated value |
+| 0x02 | VOLUP | Volume increment or 0 | Raises volume by indicated value or by 5, if data is 0 |
+| 0x02 | VOLDN | Volume decrement or 0 | Lowers volume by indicated value or by 5, if data is 0 |
+| 0x04 | PLAYTRK | Track # to play | Plays indicated track number |
 
 ## License
 
