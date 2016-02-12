@@ -10,20 +10,43 @@ Most of the available information can be found on the [SeeedStudio Wiki page](ht
 
 ## Installation
 
-The *LSMusicShield* folder should be able to be installed as a normal Arduino library. My current application appears as the included example.
+The **LSMusicShield** folder should be able to be installed as a normal Arduino library. My current application appears as the included example.
 
 ## Hardware Integration
 
-When the shield is installed normally, no pins are available without an intermediate proto-shield. By using the schematic available on the SeeedStudio wiki page and some experimantation, I was able to determine the minimum number of pins needed to operate the board.
+When the shield is installed normally, no pins are available without an intermediate proto-shield. By using the schematic available on the SeeedStudio wiki page and some experimentation, I was able to determine the minimum number of pins needed to operate the board.
 
-TODO explain the needed pinouts
-TODO image of split board mount
+### Standard Pins
+
+The following pins are required for the basic operation of the board. These should be connected to the corresponding Arduino pins, as if the shield were in place.
+
+* +5V and one of the ground pins
+* The 6 pins of the SPI header
+* The 4 analog pins A0, A1, A2, A3
+* Digital pin D10
+* The GND pin (next to D13)
+
+### IR Integration
+
+To use the infra-red remote feature, I connect the signal pin of a VS1838B to **Pin D7**.
+To blink an LED when IR is received, I connect an LED and resistor to **Pin D6**
+
+### Serial Integration
+
+For serial control, I set up a SoftwareSerial port on **Pins D2 (Rcv) & D3 (Tx)** so you can connect your external device there, along with a ground connection.
+
+### Image of Connections
+
+![Mounted with Connections](https://github.com/dcorboy/Arduino-Sound-Device/mounted-connections.jpg "Mounted with Connections")
 
 ## Usage
 
 TODO
+
 Explain the software interface for playing tracks
+
 Explain the IR system
+
 Explain the serial play method
 
 ## License
