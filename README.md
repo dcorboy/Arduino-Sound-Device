@@ -1,6 +1,6 @@
 # Arduino-Sound-Device
 
-Arduino-Sound-Device is a music and sound-effects device I created using the Music Shield V1.0 product apparently produced by [LinkSprint](http://www.linksprite.com/).
+Arduino-Sound-Device is a music and sound-effects device I created using the Music Shield V1.0 product apparently produced by [LinkSprite](http://www.linksprite.com/).
 
 ## Motivation
 
