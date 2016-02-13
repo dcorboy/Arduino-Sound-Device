@@ -82,6 +82,13 @@ The following commands are currently supported:
 | 0x02 | VOLDN | Volume decrement or 0 | Lowers volume by indicated value or by 5, if data is 0 |
 | 0x04 | PLAYTRK | Track # to play | Plays indicated track number |
 
+
+## Notes
+
+* The hardware buttons do not operate in this configuration.
+* I removed the ability to interrupt a playing song, for a number of reasons.
+* An I2C interface might be a nice thing to have.
+
 ## License
 
 I do not own the rights to the underlying libraries.
