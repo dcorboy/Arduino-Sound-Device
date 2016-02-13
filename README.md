@@ -57,7 +57,7 @@ IR control is handled entirely within the example sketch. To keep the sketch sma
 
 To add more buttons, or set up for a completely different remote, you can use the utility interface over the UART serial connection to see the values of codes received when you press a button on your remote.
 
-Those codes can then be added to the **check_IR_control()** method.
+Those codes can then be added to the **check_IR_control()** method and/or replaced in the #defines.
 
 ### Serial Control
 

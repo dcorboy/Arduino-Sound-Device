@@ -111,6 +111,15 @@ void check_serial_control() {
         Serial.println(data);
         PlayTrack(data);
         break;
+      case SETVOL :
+        SetVolume(data);
+        break;
+      case VOLUP :
+        SetVolume(GetVolume() - (data == 0 ? 5 : data));
+        break;
+      case VOLDN :
+        SetVolume(GetVolume() + (data == 0 ? 5 : data));
+        break;
     }
   }
 }
